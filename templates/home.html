@@ -1,0 +1,99 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment Section</title>
+        <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">  
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="{% static 'main.js' %}" defer></script>
+</head>
+
+
+<body>
+
+        <div class="container">
+            <div class="comments">
+                <h2>Comments</h2>
+                <!--one comment-->
+                <div id="temp">
+
+                </div>
+                {% for comment in comments %}
+                <div class="comment">
+                    <img src="{{comment.author.image.url}}" alt="" class="avatar">
+                    <div class="comment-card">
+                        <small class="author"><i class="far fa-user"></i> {{comment.author.fullname|title}}</small>
+                        <small class="date"><i class="far fa-clock"></i> {{comment.date|date}}</small>
+                        <div class="comment-content"> {{comment.content}}</div>
+                        <span class="reactions">25 <i class="fas fa-thumbs-up like"></i>&nbsp;3 <i class="fas fa-thumbs-down dislike"></i></span>
+                    </div>
+                </div>
+               {% endfor %}
+            </div>
+            <div class="form">
+                <h2>Leave a comment</h2>
+                <form action="." role="form" method="POST" id="comment-form">
+                {% csrf_token %}
+                    <textarea class="form-input"  name="message" placeholder="message" cols="30" rows="10"></textarea>
+                    <input class="form-btn form-input" type="submit" value="Comment" name="comment-form" id="submitt">
+                </form>
+            </div>
+        </div>
+
+<script>
+const form = document.getElementById("comment-form");
+form.addEventListener("submit", (e)=>{
+    e.preventDefault();
+  let message = document.querySelector("textarea").value;
+  console.log("submited.");
+
+  function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+                }
+            }
+        }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
+fetch("{% url 'home' %}", {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers:{
+          'Accept': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
+          'X-CSRFToken': csrftoken,
+  },
+      body: JSON.stringify({'message':message}) //JavaScript object of data to POST
+  })
+  .then(response => {
+        return response.json() //Convert response to JSON
+  })
+  .then(data => {
+        commentDiv = document.createElement("div");
+        commentDiv.classList.add("comment");
+        commentInnerHtml = "<img src="+data.image+" alt='' class='avatar'><div class='comment-card'><small class='author'><i class='far fa-user'></i> "+data.author+"</small><small class='date'><i class='far fa-clock'></i> "+data.date+"</small><div class='comment-content'> "+data.content+"</div><span class='reactions'>25 <i class='fas fa-thumbs-up like'></i>&nbsp;3 <i class='fas fa-thumbs-down dislike'></i></span></div>";
+        commentDiv.innerHTML = commentInnerHtml;
+        const temp = document.getElementById("temp");
+        temp.insertBefore(commentDiv, temp.childNodes[0]);
+        form.reset();
+  })
+
+})
+
+</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+
+/* ################
+   GLOBAL
+   ################ */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --bg-color: #2C2E43;
+    --text-color: #fff;
+    --gray-color: #B2B1B9;
+    --yellow-color: #FFD523;
+}
+
+html{
+    background-color: var(--bg-color);
+    font-family: 'Courier New', monospace;
+    color: var(--text-color);
+}
+
+/* ################
+   COMMENTS
+   ################ */
+
+.container{
+    margin: 50px 80px;
+    display: flex;
+    flex-direction: row;
+}
+
+h1, h2{
+    margin-bottom: 50px;
+}
+
+
+/* ################
+   CARDS
+   ################ */
+
+.comments{
+    flex: 60%;
+}
+
+.comment{
+    display: grid;
+    grid-template-columns: 20% auto;
+    margin:  2% 2% 0 0;
+}
+
+.comment-card{
+    border: solid 1px var(--gray-color);
+    padding: 10px;
+}
+
+.comment-content{
+    margin-block: 30px;
+}
+
+.author{
+    float: left;
+    font-weight: 900;
+}
+
+.date{
+    float: right;
+}
+
+.avatar{
+    max-height: 120px;
+    width: 70%;
+    background-color: var(--gray-color);
+    padding: 5px;
+    border-radius: 50%;
+}
+
+/* ################
+   FORM
+   ################ */
+
+.form{
+    flex:35%;
+    background-color: var(--gray-color);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    color: var(--bg-color);
+    max-height: 600px;
+    margin-top: 80px;
+}
+
+
+.form-input{
+    width: 90%;
+    margin-block: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+.form-input:focus{
+    border: 2px solid var(--yellow-color);
+}
+
+.form-btn{
+    background-color: var(--yellow-color);
+    color: var(--text-color);
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.form-btn:hover{
+    background-color: var(--bg-color);
+}
+
+/* ################
+   RESPONSIVE
+   ################ */
+
+@media screen and (max-width: 800px) {
+    
+.container{
+    margin: 50px 10px;
+}
+}
+
+@media screen and (max-width: 620px) {
+    
+.container{
+    margin: 50px 10px;
+    display: flex;
+    flex-direction: column;
+}
+.form{
+    text-align: center;
+}
+}
