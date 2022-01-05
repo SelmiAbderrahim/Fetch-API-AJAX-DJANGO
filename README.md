@@ -4,6 +4,6 @@
 
 ![](https://selmi.tech/media/uploads/2021/07/17/comment-snippet.png)
 
-## Read the written [article](https://selmi.tech/post/how-to-use-ajax-in-django-using-the-javascript-fetch-api-no-jquery).
+## Read the written [article](https://www.quora.com/How-do-I-use-AJAX-in-Django-using-Vanilla-JavaScript-and-not-jQuery/answer/Selmi-Abderrahim-3?prompt_topic_bio=1).
 
 ## Watch the tutorial on [YouTube](https://www.youtube.com/watch?v=p6-mzw0bEGA).
